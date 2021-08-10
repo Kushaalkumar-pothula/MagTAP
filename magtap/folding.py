@@ -19,32 +19,6 @@ def call_rfifind(files, maskfilename="mask", time=1.0):
     print(f"Starting rfifind with -time {time} and {files} files...")
     subprocess.call("rfifind", "-time", time, "-o", maskfilename, files)
 
-
-def call_prepfold(files, dm, p, maskfile, parfile=None):
-    """
-    Call prepfold
-
-    PARAMETERS
-    ----------
-    files: FITS file or glob pattern
-        FITS files for rfifind
-
-    dm: float
-        Dispersion measure
-    
-    p: float
-        Spin period
-    
-    maskfile: String
-        Mask file name
-    
-    parfile: .par file
-        Parameter file
-    """
-    print(f"Starting prepfold for {files}: DM = {dm} p = {p}, parfile = {parfile}")
-    subprocess.call("prepfold", "-p", p, "-dm", dm, files, "-mask", maskfile, "-nosearch")
-
-
 def call_prepdata(files, DM, maskfile, topofile = "topofile"):
     """
     Create a topocentric time series
@@ -65,3 +39,24 @@ def call_prepdata(files, DM, maskfile, topofile = "topofile"):
     """
     print(f"Starting prepdata for DM = {DM}, maskfile = {maskfile}, files = {files}")
     subprocess.call("prepdata", "-nobary", "-dm", DM, "-mask", maskfile, "-o", topofile, files)
+
+
+def call_prepfold(files, parfile, topofile="topofile"):
+    """
+    Call prepfold
+
+    PARAMETERS
+    ----------
+    files: FITS filename or glob pattern
+        FITS files for rfifind
+    
+    parfile: String
+        Parameter file name
+
+    topofile: String, default = "topofile"
+        Filename for topocentric time series file
+    """
+    print(f"Starting prepfold for {files}: topo-file = {topofile}, parfile = {parfile}")
+    subprocess.call("prepfold", "-par", parfile, "-nosearch", "-n", 128, "-fine", topofile)
+    # TODO: Add topocetric option
+

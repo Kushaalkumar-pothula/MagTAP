@@ -78,40 +78,12 @@ print(f"Selected maskfile for prepfold: {maskfile}")
 #----------------------------------------------------------------------
 
 
-#-prepfold-------------------------------------------------------------
-
-print("-----------------------------------------------------------------")
-print(" => Starting [MagTAP 2/5]: prepfold...")
-
-print("In:")
-print("--------")
-print(f"DM = {DM}, Period = {p}")
-print(f"Files = {files}")
-print(f"Parameter file = {parfile}")
-print(f"maskfile = {maskfile}")
-
-print("Out:")
-print("--------")
-print("Folded pulse profiles")
-print("-----------------------------------------------------------------")
-
-call_prepfold(files, DM, p, maskfile)
-
-print("-----------------------------------------------------------------")
-print(" => [MagTAP 2/5]: Finished prepfold.")
-
-plots = glob.glob('*.jpg')
-plot_jpg = max(plots, key=os.path.getctime)
-print(f" --> Pulse profiles plot: {plot_jpg}")
-
-#----------------------------------------------------------------------
-
 
 #-Prepdata-------------------------------------------------------------
 
 if magnetar is not None:
     print("-----------------------------------------------------------------")
-    print(f" => Starting [MagTAP: 3/5]: prepdata...")
+    print(f" => Starting [MagTAP: 2/5]: prepdata...")
 
     print("In:")
     print("--------")
@@ -131,11 +103,11 @@ if magnetar is not None:
     call_prepdata(files, DM, maskfile, topofile=toponame)
 
     print("-----------------------------------------------------------------")
-    print("[MagTAP: 3/5]: Completed prepdata.")
+    print("[MagTAP: 2/5]: Completed prepdata.")
 
 else:
     print("-----------------------------------------------------------------")
-    print(f" => Starting [MagTAP: 3/5]: prepdata...")
+    print(f" => Starting [MagTAP: 2/5]: prepdata...")
     print("In:")
     print("--------")
     print(f"Files = {files}")
@@ -152,6 +124,42 @@ else:
     call_prepdata(files, DM, maskfile)
     
     print("-----------------------------------------------------------------")
-    print(" => [MagTAP: 3/5]: Completed prepdata.")
+    print(" => [MagTAP: 2/5]: Completed prepdata.")
+
+topocentric_all = glob.glob('*.dat')
+topocentric_series = max(topocentric_all, key=os.path.getctime)
+print(f" --> Topocentric time series: {topocentric_series}")
+
+#----------------------------------------------------------------------
+
+
+
+#-prepfold-------------------------------------------------------------
+
+print("-----------------------------------------------------------------")
+print(" => Starting [MagTAP 3/5]: prepfold...")
+
+print("In:")
+print("--------")
+print(f"DM = {DM}, Period = {p}")
+print(f"Files = {files}")
+print(f"Parameter file = {parfile}")
+print(f"Maskfile = {maskfile}")
+print(f"Topocentric series file = {topocentric_series}")
+
+
+print("Out:")
+print("--------")
+print("Folded pulse profiles")
+print("-----------------------------------------------------------------")
+
+call_prepfold(files, parfile, topofile=topocentric_series)
+
+print("-----------------------------------------------------------------")
+print(" => [MagTAP 3/5]: Finished prepfold.")
+
+plots = glob.glob('*.jpg')
+plot_jpg = max(plots, key=os.path.getctime)
+print(f" --> Pulse profiles plot: {plot_jpg}")
 
 #----------------------------------------------------------------------
