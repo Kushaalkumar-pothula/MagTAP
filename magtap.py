@@ -32,41 +32,48 @@ p = args.p
 #-rfifind -------------------------------------------------------------
 
 if magnetar is not None:
+    maskname = magnetar+'_mask'
     print("-----------------------------------------------------------------")
-    print(f"Starting [MagTAP: 1/5]: rfifind...")
+    print(f" => Starting [MagTAP: 1/5]: rfifind...")
+
+    print("In:")
+    print("--------")
     print(f"Magnetar = {magnetar}")
     print(f"Files = {files}")
     print(f"Parameter file = {parfile}")
-    print("Out: maskfile")
-    maskname = magnetar+'_mask'
-    print(f"maskfile = {maskname}")
+
+    print("Out:")
+    print("--------")
+    print(f" --> Maskfile = {maskname}")
     print("-----------------------------------------------------------------")
+
     call_rfifind(files, maskname)
+
     print("-----------------------------------------------------------------")
-    print("[MagTAP: 1/5]: Completed rfifind.")
+    print(" => [MagTAP: 1/5]: Completed rfifind.")
 
 else:
     print("-----------------------------------------------------------------")
-    print(f"Starting [MagTAP: 1/5]: rfifind...")
+    print(f" => Starting [MagTAP: 1/5]: rfifind...")
+
+    print("In:")
+    print("--------")
     print(f"Files = {files}")
     print(f"Parameter file = {parfile}")
-    print("Out: maskfile")
-    print(f"maskfile = mask")
-    print("-----------------------------------------------------------------")
-    call_rfifind(files)
-    print("-----------------------------------------------------------------")
-    print("[MagTAP: 1/5]: Finished rfifind.")
-    print("Outputs:")
+
+    print("Out:")
     print("--------")
-    maskname = magnetar+'_mask'
-    print(f"Maskfile = {maskname}")
+    print(f" --> Maskfile = mask")
+    print("-----------------------------------------------------------------")
 
+    call_rfifind(files)
 
+    print("-----------------------------------------------------------------")
+    print(" => [MagTAP: 1/5]: Finished rfifind.")
+    
 maskfiles = glob.glob('*.mask')
 maskfile = max(maskfiles, key=os.path.getctime)
-
 print(f"Selected maskfile for prepfold: {maskfile}")
-print(f"All maskfiles = {maskfiles}")
 
 #----------------------------------------------------------------------
 
@@ -74,21 +81,28 @@ print(f"All maskfiles = {maskfiles}")
 #-prepfold-------------------------------------------------------------
 
 print("-----------------------------------------------------------------")
-print("[MagTAP 2/5]: prepfold...")
+print(" => Starting [MagTAP 2/5]: prepfold...")
+
 print("In:")
+print("--------")
 print(f"DM = {DM}, Period = {p}")
 print(f"Files = {files}")
 print(f"Parameter file = {parfile}")
-print("Out: Folded pulse profiles")
 print(f"maskfile = {maskfile}")
+
+print("Out:")
+print("--------")
+print("Folded pulse profiles")
 print("-----------------------------------------------------------------")
+
 call_prepfold(files, DM, p, maskfile)
+
 print("-----------------------------------------------------------------")
-print("[MagTAP 2/5]: Finished prepfold.")
+print(" => [MagTAP 2/5]: Finished prepfold.")
 
 plots = glob.glob('*.jpg')
 plot_jpg = max(plots, key=os.path.getctime)
-print(f"Pulse profiles plot: {plot_jpg}")
+print(f" --> Pulse profiles plot: {plot_jpg}")
 
 #----------------------------------------------------------------------
 
@@ -97,32 +111,47 @@ print(f"Pulse profiles plot: {plot_jpg}")
 
 if magnetar is not None:
     print("-----------------------------------------------------------------")
-    print(f"Starting [MagTAP: 3/5]: prepdata...")
+    print(f" => Starting [MagTAP: 3/5]: prepdata...")
+
+    print("In:")
+    print("--------")
     print(f"Magnetar = {magnetar}")
     print(f"DM = {DM}")
     print(f"Files = {files}")
     print(f"Parameter file = {parfile}")
     print(f"maskfile = {maskname}")
-    print("Out: Topocentric time series")
+
+    print("Out:")
+    print("--------")
+    print("Topocentric time series")
     toponame = magnetar+'_topo'
-    print(f"Topocentric series name = {toponame}")
+    print(f" --> Topocentric series file name = {toponame}")
     print("-----------------------------------------------------------------")
+
     call_prepdata(files, DM, maskfile, topofile=toponame)
+
     print("-----------------------------------------------------------------")
     print("[MagTAP: 3/5]: Completed prepdata.")
 
 else:
     print("-----------------------------------------------------------------")
-    print(f"Starting [MagTAP: 3/5]: prepdata...")
+    print(f" => Starting [MagTAP: 3/5]: prepdata...")
+    print("In:")
+    print("--------")
     print(f"Files = {files}")
     print(f"DM = {DM}")
     print(f"Parameter file = {parfile}")
     print(f"maskfile = {maskname}")
-    print("Out: Topocentric time series")
-    print(f"Topofile = topofile")
+
+    print("Out:")
+    print("--------")
+    print("Topocentric time series")
+    print(f" --> Topofile = topofile")
     print("-----------------------------------------------------------------")
+
     call_prepdata(files, DM, maskfile)
+    
     print("-----------------------------------------------------------------")
-    print("[MagTAP: 3/5]: Completed prepdata.")
+    print(" => [MagTAP: 3/5]: Completed prepdata.")
 
 #----------------------------------------------------------------------
