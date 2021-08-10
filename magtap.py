@@ -9,6 +9,7 @@ from magtap.folding import *
 
 
 #-Parse command line arguments ----------------------------------------
+
 parser = argparse.ArgumentParser()
 parser.add_argument(dest='files', type=str, help="Name/glob pattern for the FITS files to be analyzed.")
 parser.add_argument(dest='parfile',type=str, help="Parameter file for the magnetar.")
@@ -24,10 +25,12 @@ magnetar = args.magnetar
 
 DM = args.DM
 p = args.p
+
 #----------------------------------------------------------------------
 
 
 #-rfifind -------------------------------------------------------------
+
 if magnetar is not None:
     print("-----------------------------------------------------------------")
     print(f"Starting [MagTAP: 1/3]: rfifind...")
@@ -60,10 +63,12 @@ maskfile = max(maskfiles, key=os.path.getctime)
 
 print(f"Selected maskfile for prepfold: {maskfile}")
 print(f"All maskfiles = {maskfiles}")
+
 #----------------------------------------------------------------------
 
 
 #-prepfold-------------------------------------------------------------
+
 print("-----------------------------------------------------------------")
 print("[MagTAP 2/3]: prepfold...")
 print("In:")
