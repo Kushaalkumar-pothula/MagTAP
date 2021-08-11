@@ -146,9 +146,9 @@ call_prepfold(files, parfile, topocentric_series)
 logging.info(" => [MagTAP 3/5]: PREPFOLD FINISHED.")
 logging.info("-----------------------------------------------------------------")
 
-plots = glob.glob('*.jpg')
-plot_jpg = max(plots, key=os.path.getctime)
-logging.info(f" --> Pulse profiles plot: {plot_jpg}")
+plots = glob.glob('*.ps')
+plot_ps = max(plots, key=os.path.getctime)
+logging.info(f" --> Pulse profiles plot: {plot_ps}")
 
 #----------------------------------------------------------------------
 
