@@ -33,6 +33,6 @@ def call_gettoas(bestprof, pfd, timfile):
     logging.basicConfig(level=logging.INFO, format='%(message)s')
     logging.info(f"[INTERNAL: GetTOAs]: bestprof = {bestprof}; pfd = {pfd}; timfile = {timfile} ")
     logging.info("----------")
-    subprocess.call(["bash get_TOAs.sh])
+    subprocess.call(["bash get_TOAs.sh"])
     
     
