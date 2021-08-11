@@ -1,7 +1,7 @@
 import subprocess
 import logging
 
-def call_rfifind(files, maskfilename, time=1.0):
+def call_rfifind(files, maskfilename, time="1.0"):
     """
     Call rfifind
     
@@ -13,7 +13,7 @@ def call_rfifind(files, maskfilename, time=1.0):
     maskfilename: string
         Mask file name for rfifind output
 
-    time: float
+    time: string
         Time for the -time flag of rfifind. Probably integration time
     """
     logging.basicConfig(level=logging.INFO, format='%(message)s')
