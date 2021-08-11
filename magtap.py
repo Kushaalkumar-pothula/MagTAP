@@ -1,4 +1,5 @@
 import subprocess
+import logging
 import os, glob
 import argparse
 
@@ -32,30 +33,34 @@ p = args.p
 #----------------------------------------------------------------------
 
 
+#-Logging--------------------------------------------------------------
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+#----------------------------------------------------------------------
+
 #-rfifind -------------------------------------------------------------
 
-print("-----------------------------------------------------------------")
-print(f" => [MagTAP: 1/5]: STARTING RFIFIND...")
+logging.info("-----------------------------------------------------------------")
+logging.info(f" => [MagTAP: 1/5]: STARTING RFIFIND...")
 
-print("In:")
-print("--------")
-print(f"Files = {files}")
-print(f"Parameter file = {parfile}")
+logging.info("In:")
+logging.info("--------")
+logging.info(f"Files = {files}")
+logging.info(f"Parameter file = {parfile}")
 
-print("Out:")
-print("--------")
-print(f" --> Maskfile = {maskname}")
-print("-----------------------------------------------------------------")
+logging.info("Out:")
+logging.info("--------")
+logging.info(f" --> Maskfile = {maskname}")
+logging.info("-----------------------------------------------------------------")
 
 call_rfifind(files, maskname)
 
-print("-----------------------------------------------------------------")
-print(" => [MagTAP: 1/5]: RFIFIND FINISHED.")
+logging.info("-----------------------------------------------------------------")
+logging.info(" => [MagTAP: 1/5]: RFIFIND FINISHED.")
 
    
 maskfiles = glob.glob('*.mask')
 maskfile = max(maskfiles, key=os.path.getctime)
-print(f"Selected maskfile for prepfold: {maskfile}")
+logging.info(f"Selected maskfile for prepfold: {maskfile}")
 
 #----------------------------------------------------------------------
 
@@ -63,30 +68,30 @@ print(f"Selected maskfile for prepfold: {maskfile}")
 
 #-Prepdata-------------------------------------------------------------
 
-print("-----------------------------------------------------------------")
-print(f" => [MagTAP: 2/5]: STARTING PREPDATA")
+logging.info("-----------------------------------------------------------------")
+logging.info(f" => [MagTAP: 2/5]: STARTING PREPDATA")
 
-print("In:")
-print("--------")
-print(f"DM = {DM}")
-print(f"Files = {files}")
-print(f"Parameter file = {parfile}")
-print(f"maskfile = {maskfile}")
+logging.info("In:")
+logging.info("--------")
+logging.info(f"DM = {DM}")
+logging.info(f"Files = {files}")
+logging.info(f"Parameter file = {parfile}")
+logging.info(f"maskfile = {maskfile}")
 
-print("Out:")
-print("--------")
-print("Topocentric time series")
-print(f" --> Topocentric series file name = {toponame}")
-print("-----------------------------------------------------------------")
+logging.info("Out:")
+logging.info("--------")
+logging.info("Topocentric time series")
+logging.info(f" --> Topocentric series file name = {toponame}")
+logging.info("-----------------------------------------------------------------")
 
 call_prepdata(files, DM, maskfile, toponame)
 
-print("-----------------------------------------------------------------")
-print("[MagTAP: 2/5]: PREPDATA FINISHED")
+logging.info("-----------------------------------------------------------------")
+logging.info("[MagTAP: 2/5]: PREPDATA FINISHED")
 
 topocentric_all = glob.glob('*.dat')
 topocentric_series = max(topocentric_all, key=os.path.getctime)
-print(f" --> Topocentric time series: {topocentric_series}")
+logging.info(f" --> Topocentric time series: {topocentric_series}")
 
 #----------------------------------------------------------------------
 
@@ -94,35 +99,37 @@ print(f" --> Topocentric time series: {topocentric_series}")
 
 #-prepfold-------------------------------------------------------------
 
-print("-----------------------------------------------------------------")
-print(" => [MagTAP 3/5]: STARTING PREPFOLD...")
+logging.info("-----------------------------------------------------------------")
+logging.info(" => [MagTAP 3/5]: STARTING PREPFOLD...")
 
-print("In:")
-print("--------")
-print(f"DM = {DM}, Period = {p}")
-print(f"Files = {files}")
-print(f"Parameter file = {parfile}")
-print(f"Maskfile = {maskfile}")
-print(f"Topocentric series file = {topocentric_series}")
+logging.info("In:")
+logging.info("--------")
+logging.info(f"DM = {DM}, Period = {p}")
+logging.info(f"Files = {files}")
+logging.info(f"Parameter file = {parfile}")
+logging.info(f"Maskfile = {maskfile}")
+logging.info(f"Topocentric series file = {topocentric_series}")
 
 
-print("Out:")
-print("--------")
-print("Folded pulse profiles")
-print("-----------------------------------------------------------------")
+logging.info("Out:")
+logging.info("--------")
+logging.info("Folded pulse profiles")
+logging.info("-----------------------------------------------------------------")
 
 call_prepfold(files, parfile, topocentric_series)
 
-print("-----------------------------------------------------------------")
-print(" => [MagTAP 3/5]: Finished prepfold.")
+logging.info("-----------------------------------------------------------------")
+logging.info(" => [MagTAP 3/5]: PREPFOLD FINISHED.")
 
 plots = glob.glob('*.jpg')
 plot_jpg = max(plots, key=os.path.getctime)
-print(f" --> Pulse profiles plot: {plot_jpg}")
+logging.info(f" --> Pulse profiles plot: {plot_jpg}")
 
 #----------------------------------------------------------------------
 
 #-Exploredat-----------------------------------------------------------
+logging.info("-----------------------------------------------------------------")
+
 #----------------------------------------------------------------------
 
 #-GetTOAs--------------------------------------------------------------
