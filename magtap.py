@@ -149,8 +149,8 @@ logging.info("-----------------------------------------------------------------"
 
 plots = glob.glob('*.ps')
 plot_ps = max(plots, key=os.path.getctime)
-subprocess.call(["convert", "-rotate", str(90), plot_ps, plot_ps+'jpg'])
-logging.info(f" --> Pulse profiles plot: {plot_ps+'jpg'}")
+subprocess.call(["convert", "-rotate", str(90), plot_ps, plot_ps+'.jpg'])
+logging.info(f" --> Pulse profiles plot: {plot_ps+'.jpg'}")
 
 #----------------------------------------------------------------------
 
@@ -208,6 +208,6 @@ logging.info("Outputs:")
 logging.info("--------")
 logging.info(f" Maskfile: {maskfile}")
 logging.info(f" Topocentric time series: {topocentric_series}")
-logging.info(f" Pulse profiles plot: {plot_ps+'jpg'}")
+logging.info(f" Pulse profiles plot: {plot_ps+'.jpg'}")
 logging.info(f"TOAs = {timfile}")
 
