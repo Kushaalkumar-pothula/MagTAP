@@ -207,6 +207,6 @@ logging.info("Outputs:")
 logging.info("--------")
 logging.info(f" Maskfile: {maskfile}")
 logging.info(f" Topocentric time series: {topocentric_series}")
-logging.info(f" Pulse profiles plot: {plot_ps}")
+logging.info(f" Pulse profiles plot: {plot_ps+str(jpg)}")
 logging.info(f"TOAs = {timfile}")
 
