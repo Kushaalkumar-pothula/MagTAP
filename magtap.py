@@ -1,3 +1,4 @@
+from magtap.magtap.timing import call_exploredat
 import subprocess
 import logging
 import os, glob
@@ -45,11 +46,10 @@ logging.info(f" => [MagTAP: 1/5]: STARTING RFIFIND...")
 logging.info("In:")
 logging.info("--------")
 logging.info(f"Files = {files}")
-logging.info(f"Parameter file = {parfile}")
 
 logging.info("Out:")
 logging.info("--------")
-logging.info(f" --> Maskfile = {maskname}")
+logging.info(f"Maskfile = {maskname}")
 logging.info("-----------------------------------------------------------------")
 
 call_rfifind(files, maskname)
@@ -60,7 +60,7 @@ logging.info(" => [MagTAP: 1/5]: RFIFIND FINISHED.")
    
 maskfiles = glob.glob('*.mask')
 maskfile = max(maskfiles, key=os.path.getctime)
-logging.info(f"Selected maskfile for prepfold: {maskfile}")
+logging.info(f" --> Selected maskfile for prepfold: {maskfile}")
 
 #----------------------------------------------------------------------
 
@@ -73,21 +73,21 @@ logging.info(f" => [MagTAP: 2/5]: STARTING PREPDATA")
 
 logging.info("In:")
 logging.info("--------")
-logging.info(f"DM = {DM}")
 logging.info(f"Files = {files}")
-logging.info(f"Parameter file = {parfile}")
+logging.info(f"DM = {DM}")
 logging.info(f"maskfile = {maskfile}")
+logging.info(f"Parameter file = {parfile}")
 
 logging.info("Out:")
 logging.info("--------")
 logging.info("Topocentric time series")
-logging.info(f" --> Topocentric series file name = {toponame}")
+logging.info(f"Topocentric series file name = {toponame}")
 logging.info("-----------------------------------------------------------------")
 
 call_prepdata(files, DM, maskfile, toponame)
 
-logging.info("-----------------------------------------------------------------")
 logging.info("[MagTAP: 2/5]: PREPDATA FINISHED")
+logging.info("-----------------------------------------------------------------")
 
 topocentric_all = glob.glob('*.dat')
 topocentric_series = max(topocentric_all, key=os.path.getctime)
@@ -104,7 +104,6 @@ logging.info(" => [MagTAP 3/5]: STARTING PREPFOLD...")
 
 logging.info("In:")
 logging.info("--------")
-logging.info(f"DM = {DM}, Period = {p}")
 logging.info(f"Files = {files}")
 logging.info(f"Parameter file = {parfile}")
 logging.info(f"Maskfile = {maskfile}")
@@ -118,8 +117,8 @@ logging.info("-----------------------------------------------------------------"
 
 call_prepfold(files, parfile, topocentric_series)
 
-logging.info("-----------------------------------------------------------------")
 logging.info(" => [MagTAP 3/5]: PREPFOLD FINISHED.")
+logging.info("-----------------------------------------------------------------")
 
 plots = glob.glob('*.jpg')
 plot_jpg = max(plots, key=os.path.getctime)
@@ -129,7 +128,20 @@ logging.info(f" --> Pulse profiles plot: {plot_jpg}")
 
 #-Exploredat-----------------------------------------------------------
 logging.info("-----------------------------------------------------------------")
+logging.info(f" => [MagTAP: 4/5]: STARTING EXPLOREDAT...")
 
+logging.info("In:")
+logging.info("--------")
+logging.info(f"Topocentric series file = {topocentric_series}")
+
+logging.info("Out:")
+logging.info("--------")
+logging.info("Topocentric series contents")
+
+call_exploredat(topocentric_series)
+
+logging.info(f" => [MagTAP: 4/5]: FINISHED EXPLOREDAT.")
+logging.info("-----------------------------------------------------------------")
 #----------------------------------------------------------------------
 
 #-GetTOAs--------------------------------------------------------------
