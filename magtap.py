@@ -67,7 +67,7 @@ logging.info("=====================")
 #-rfifind -------------------------------------------------------------
 
 logging.info("-----------------------------------------------------------------")
-logging.info(f" => [MagTAP: 1/5]: STARTING RFIFIND...")
+logging.info(f" ***********[MagTAP: 1/5]: STARTING RFIFIND***********")
 
 logging.info("In:")
 logging.info("--------")
@@ -81,7 +81,7 @@ logging.info("-----------------------------------------------------------------"
 call_rfifind(files, maskname)
 
 logging.info("-----------------------------------------------------------------")
-logging.info(" => [MagTAP: 1/5]: RFIFIND FINISHED.")
+logging.info(" ***********[MagTAP: 1/5]: RFIFIND FINISHED***********")
 
    
 maskfiles = glob.glob('*.mask')
@@ -95,7 +95,7 @@ logging.info(f" --> Selected maskfile for prepfold: {maskfile}")
 #-Prepdata-------------------------------------------------------------
 
 logging.info("-----------------------------------------------------------------")
-logging.info(f" => [MagTAP: 2/5]: STARTING PREPDATA")
+logging.info(f" ***********[MagTAP: 2/5]: STARTING PREPDATA***********")
 
 logging.info("In:")
 logging.info("--------")
@@ -112,7 +112,7 @@ logging.info("-----------------------------------------------------------------"
 
 call_prepdata(files, DM, maskfile, toponame)
 
-logging.info("[MagTAP: 2/5]: PREPDATA FINISHED")
+logging.info("***********[MagTAP: 2/5]: PREPDATA FINISHED***********")
 logging.info("-----------------------------------------------------------------")
 
 topocentric_all = glob.glob('*.dat')
@@ -126,7 +126,7 @@ logging.info(f" --> Topocentric time series: {topocentric_series}")
 #-prepfold-------------------------------------------------------------
 
 logging.info("-----------------------------------------------------------------")
-logging.info(" => [MagTAP 3/5]: STARTING PREPFOLD...")
+logging.info(" ***********[MagTAP 3/5]: STARTING PREPFOLD***********")
 
 logging.info("In:")
 logging.info("--------")
@@ -143,7 +143,7 @@ logging.info("-----------------------------------------------------------------"
 
 call_prepfold(files, parfile, topocentric_series)
 
-logging.info(" => [MagTAP 3/5]: PREPFOLD FINISHED.")
+logging.info(" ***********[MagTAP 3/5]: PREPFOLD FINISHED***********")
 logging.info("-----------------------------------------------------------------")
 
 plots = glob.glob('*.ps')
@@ -156,7 +156,7 @@ logging.info(f" --> Pulse profiles plot: {plot_ps}")
 
 #-Exploredat-----------------------------------------------------------
 logging.info("-----------------------------------------------------------------")
-logging.info(f" => [MagTAP: 4/5]: STARTING EXPLOREDAT...")
+logging.info(f" ***********[MagTAP: 4/5]: STARTING EXPLOREDAT***********")
 
 logging.info("In:")
 logging.info("--------")
@@ -168,7 +168,7 @@ logging.info("Topocentric series contents")
 
 call_exploredat(topocentric_series)
 
-logging.info(f" => [MagTAP: 4/5]: FINISHED EXPLOREDAT.")
+logging.info(f" ***********[MagTAP: 4/5]: FINISHED EXPLOREDAT***********")
 logging.info("-----------------------------------------------------------------")
 #----------------------------------------------------------------------
 
@@ -182,7 +182,7 @@ pfds = glob.glob('*.pfd')
 pfd = max(pfds, key=os.path.getctime)
 
 logging.info("-----------------------------------------------------------------")
-logging.info(f" => [MagTAP: 5/5]: STARTING GetTOAs...")
+logging.info(f" ***********[MagTAP: 5/5]: STARTING GetTOAs***********")
 
 logging.info("In:")
 logging.info("--------")
@@ -195,11 +195,13 @@ logging.info(f"TOAs = {timfile}")
 
 call_gettoas(bestprof, pfd, timfile)
 
-logging.info(f" => [MagTAP: 5/5]: FINISHED GetTOAs.")
+logging.info(f" ***********[MagTAP: 5/5]: FINISHED GetTOAs***********")
 logging.info("-----------------------------------------------------------------")
 #----------------------------------------------------------------------
 
-logging.info("-----MagTAP completed-----")
+logging.info("**************************")
+logging.info("-----MagTAP FINISHED-----")
+logging.info("**************************")
 logging.info("Outputs:")
 logging.info("--------")
 logging.info(f" Maskfile: {maskfile}")
