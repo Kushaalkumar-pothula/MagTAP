@@ -1,6 +1,6 @@
 import subprocess
 import logging
-import os, glob
+import glob
 import argparse
 
 from magtap.folding import *
@@ -148,7 +148,8 @@ logging.info("-----------------------------------------------------------------"
 
 plots = glob.glob('*.ps')
 plot_ps = max(plots, key=os.path.getctime)
-logging.info(f" --> Pulse profiles plot: {plot_ps}")
+subprocess.call(["convert", "-rotate", str(90), plot_ps, plot_ps+str(jpg)"])
+logging.info(f" --> Pulse profiles plot: {plot_ps+str(jpg)}")
 
 #----------------------------------------------------------------------
 
