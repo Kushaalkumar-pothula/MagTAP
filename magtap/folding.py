@@ -63,5 +63,5 @@ def call_prepfold(files, parfile, topofile):
     logging.basicConfig(level=logging.INFO, format='%(message)s')
     logging.info(f"[INTERNAL: PREPFOLD] Files= {files}; topo-file = {topofile}; parfile = {parfile}")
     logging.info("----------")
-    subprocess.call(["prepfold", "-par", parfile, "-nosearch", "-n", 128, "-fine", topofile])
+    subprocess.call(["prepfold", "-par", parfile, "-nosearch", "-n", str(128), "-fine", topofile])
 
