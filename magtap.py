@@ -148,7 +148,7 @@ logging.info("-----------------------------------------------------------------"
 
 plots = glob.glob('*.ps')
 plot_ps = max(plots, key=os.path.getctime)
-subprocess.call(["convert", "-rotate", str(90), plot_ps, plot_ps+str(jpg)"])
+subprocess.call(["convert", "-rotate", str(90), plot_ps, plot_ps+str(jpg)])
 logging.info(f" --> Pulse profiles plot: {plot_ps+str(jpg)}")
 
 #----------------------------------------------------------------------
