@@ -1,11 +1,7 @@
-from magtap.magtap.timing import call_exploredat
 import subprocess
 import logging
 import os, glob
 import argparse
-
-import numpy as np
-import matplotlib.pyplot as plt
 
 from magtap.folding import *
 from magtap.timing import *
