@@ -1,5 +1,6 @@
 import subprocess
-import numpy as np
+import logging
+logging.basicConfig(level=logging.INFO, format='%(message)s')
 
 def call_rfifind(files, maskfilename, time=1.0):
     """
@@ -16,7 +17,7 @@ def call_rfifind(files, maskfilename, time=1.0):
     time: float
         Time for the -time flag of rfifind. Probably integration time
     """
-    print(f"Starting rfifind with -time {time} and {files} files for {maskfilename} maskfile...")
+    logging.info(f"[INTERNAL: RFIFIND] -time = {time}; files = {files}; maskfile = {maskfilename}")
     subprocess.call("rfifind", "-time", time, "-o", maskfilename, files)
 
 def call_prepdata(files, DM, maskfile, topofile):
@@ -37,7 +38,7 @@ def call_prepdata(files, DM, maskfile, topofile):
     topofile: string
         Filename for topocentric time series file
     """
-    print(f"Starting prepdata for DM = {DM}, maskfile = {maskfile}, files = {files}, topofile = {topofile}")
+    logging.info(f"[INTERNAL: PREPDATA] DM = {DM}; maskfile = {maskfile}; files = {files}; topo-file = {topofile}")
     subprocess.call("prepdata", "-nobary", "-dm", DM, "-mask", maskfile, "-o", topofile, files)
 
 
@@ -56,7 +57,7 @@ def call_prepfold(files, parfile, topofile):
     topofile: string
         Filename for topocentric time series file
     """
-    print(f"Starting prepfold for {files}: topo-file = {topofile}, parfile = {parfile}")
+    logging.info(f"[INTERNAL: PREPFOLD] Files= {files}; topo-file = {topofile}; parfile = {parfile}")
     subprocess.call("prepfold", "-par", parfile, "-nosearch", "-n", 128, "-fine", topofile)
     # TODO: Add topocetric option
 
