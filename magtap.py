@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from magtap.folding import *
+from magtap.timing import *
 
 
 #-Parse command line arguments ----------------------------------------
@@ -17,9 +18,9 @@ parser.add_argument(dest='files', type=str, help="Name/glob pattern for the FITS
 parser.add_argument(dest='parfile',type=str, help="Parameter file for the magnetar.")
 parser.add_argument(dest='maskfile',type=str, help="Mask file for rfifind.")
 parser.add_argument(dest='topofile',type=str, help="Topocentric time series file for prepdata.")
+parser.add_argument(dest='timfile',type=str, help=".tim file for GetTOAs.")
 parser.add_argument(dest='DM',type=float, help="DM of the magnetar.")
 parser.add_argument(dest='p',type=float, help="Period of the magnetar.")
-parser.add_argument('-m', '--magnetar',type=str, dest='magnetar', default=None, help="Name of the magnetar. Used to name mask file.")
 args = parser.parse_args()
 
 
@@ -27,6 +28,7 @@ files = args.files
 parfile = args.parfile
 maskname = args.maskfile
 toponame = args.topofile
+timfile = args.timfile
 
 DM = args.DM
 p = args.p
@@ -37,6 +39,34 @@ p = args.p
 #-Logging--------------------------------------------------------------
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 #----------------------------------------------------------------------
+
+#-Start----------------------------------------------------------------
+logging.info("==============================================")
+logging.info("  MagTAP: Magnetar Timing Analysis Pipeline   ")
+logging.info("==============================================")
+
+logging.info("Parameters:")
+logging.info("-----------")
+logging.info(f"Files = {files}")
+logging.info(f"Parameter file = {parfile}")
+logging.info(f"Maskfile name = {maskname}")
+logging.info(f"Topocentric time series file name = {toponame}")
+logging.info(f"TOAs file (.tim) name = {timfile}")
+logging.info(f"DM = {DM}")
+logging.info(f"p = {p}")
+
+logging.info("=====================")
+
+logging.info("Pipeline:")
+logging.info("---------")
+logging.info("1/5 : RFIFIND")
+logging.info("2/5 : PREPDATA")
+logging.info("3/5 : PREPFOLD")
+logging.info("4/5 : EXPLOREDAT")
+logging.info("5/5 : GetTOAs")
+
+logging.info("=====================")
+
 
 #-rfifind -------------------------------------------------------------
 
@@ -126,6 +156,8 @@ logging.info(f" --> Pulse profiles plot: {plot_jpg}")
 
 #----------------------------------------------------------------------
 
+
+
 #-Exploredat-----------------------------------------------------------
 logging.info("-----------------------------------------------------------------")
 logging.info(f" => [MagTAP: 4/5]: STARTING EXPLOREDAT...")
@@ -144,6 +176,38 @@ logging.info(f" => [MagTAP: 4/5]: FINISHED EXPLOREDAT.")
 logging.info("-----------------------------------------------------------------")
 #----------------------------------------------------------------------
 
+
+
 #-GetTOAs--------------------------------------------------------------
+bestprofs = glob.glob('*.bestprof')
+bestprof = max(bestprofs, key=os.path.getctime)
+
+pfds = glob.glob('*.pfd')
+pfd = max(pfds, key=os.path.getctime)
+
+logging.info("-----------------------------------------------------------------")
+logging.info(f" => [MagTAP: 5/5]: STARTING GetTOAs...")
+
+logging.info("In:")
+logging.info("--------")
+logging.info(f"bestprof = {bestprof}")
+logging.info(f"pfd = {pfd}")
+
+logging.info("Out:")
+logging.info("--------")
+logging.info(f"TOAs = {timfile}")
+
+call_gettoas(bestprof, pfd, timfile)
+
+logging.info(f" => [MagTAP: 5/5]: FINISHED GetTOAs.")
+logging.info("-----------------------------------------------------------------")
 #----------------------------------------------------------------------
+
+logging.info("-----MagTAP completed-----")
+logging.info("Outputs:")
+logging.info("--------")
+logging.info(f" Maskfile: {maskfile}")
+logging.info(f" Topocentric time series: {topocentric_series}")
+logging.info(f" Pulse profiles plot: {plot_jpg}")
+logging.info(f"TOAs = {timfile}")
 
