@@ -19,7 +19,7 @@ def call_rfifind(files, maskfilename, time=1.0):
     logging.basicConfig(level=logging.INFO, format='%(message)s')
     logging.info(f"[INTERNAL: RFIFIND] -time = {time}; files = {files}; maskfile = {maskfilename}")
     logging.info("----------")
-    subprocess.call("rfifind", "-time", time, "-o", maskfilename, files)
+    subprocess.call(["rfifind", "-time", time, "-o", maskfilename, files])
 
 def call_prepdata(files, DM, maskfile, topofile):
     """
@@ -42,7 +42,7 @@ def call_prepdata(files, DM, maskfile, topofile):
     logging.basicConfig(level=logging.INFO, format='%(message)s')
     logging.info(f"[INTERNAL: PREPDATA] DM = {DM}; maskfile = {maskfile}; files = {files}; topo-file = {topofile}")
     logging.info("----------")
-    subprocess.call("prepdata", "-nobary", "-dm", DM, "-mask", maskfile, "-o", topofile, files)
+    subprocess.call(["prepdata", "-nobary", "-dm", DM, "-mask", maskfile, "-o", topofile, files])
 
 
 def call_prepfold(files, parfile, topofile):
@@ -63,5 +63,5 @@ def call_prepfold(files, parfile, topofile):
     logging.basicConfig(level=logging.INFO, format='%(message)s')
     logging.info(f"[INTERNAL: PREPFOLD] Files= {files}; topo-file = {topofile}; parfile = {parfile}")
     logging.info("----------")
-    subprocess.call("prepfold", "-par", parfile, "-nosearch", "-n", 128, "-fine", topofile)
+    subprocess.call(["prepfold", "-par", parfile, "-nosearch", "-n", 128, "-fine", topofile])
 
