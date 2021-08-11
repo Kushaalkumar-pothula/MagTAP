@@ -35,4 +35,4 @@ MagTAP requires:
 - Python >= 3.7
 
 ## Author
-This code was written by Kushaal Kumar Pothula during his junior year of high school. As a member of magnetar timing research team @ Pulsar Search Collaboratory.
+This code was written by [Kushaal Kumar Pothula](https://kushaalkumarpothula.wordpress.com/) during his junior year of high school, as a member of magnetar timing research team @ Pulsar Search Collaboratory.
