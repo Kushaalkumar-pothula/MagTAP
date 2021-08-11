@@ -4,6 +4,15 @@ MagTAP (Magnetar Timing Analysis Pipeline) is a Python pipeline to simplify fold
 
 MagTAP uses PRESTO, the standard tool for pulsar data anaysis, for folding and timing data.
 
+MagTAP pipeline consists of:
+1. `rfifind`
+2. `prepdata`
+3. `prepfold`
+4. `exploredat`
+5. `get_TOAs.py`
+
+These steps are run sequentially, and MagTAP finds the required files (mask file and topocentric time series file) by itself, removing user interaction.
+
 ## Installation
 Installation using `git clone` is the recommended method:
 ```zsh
@@ -33,6 +42,9 @@ optional arguments:
 ## Requirements
 MagTAP requires:
 - Python >= 3.7
+
+## Known Bugs
+The only bug is that `get_TOAs.py` (5th step) is not able to get arguments, this is expected to be resolved soon.
 
 ## Author
 This code was written by [Kushaal Kumar Pothula](https://kushaalkumarpothula.wordpress.com/) during his junior year of high school, as a member of magnetar timing research team @ Pulsar Search Collaboratory.
