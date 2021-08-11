@@ -42,7 +42,7 @@ def call_prepdata(files, DM, maskfile, topofile):
     logging.basicConfig(level=logging.INFO, format='%(message)s')
     logging.info(f"[INTERNAL: PREPDATA] DM = {DM}; maskfile = {maskfile}; files = {files}; topo-file = {topofile}")
     logging.info("----------")
-    subprocess.call(["prepdata", "-nobary", "-dm", DM, "-mask", maskfile, "-o", topofile, files])
+    subprocess.call(["prepdata", "-nobary", "-dm", str(DM), "-mask", maskfile, "-o", topofile, files])
 
 
 def call_prepfold(files, parfile, topofile):
