@@ -13,7 +13,7 @@ def call_exploredat(topo_file):
     logging.basicConfig(level=logging.INFO, format='%(message)s')
     logging.info(f"[INTERNAL: EXPLOREDAT]: Topocentric file = {topo_file} ")
     logging.info("----------")
-    subprocess.call("exploredat", topo_file)
+    subprocess.call(["exploredat", topo_file])
 
 def call_gettoas(bestprof, pfd, timfile):
     """
@@ -33,6 +33,6 @@ def call_gettoas(bestprof, pfd, timfile):
     logging.basicConfig(level=logging.INFO, format='%(message)s')
     logging.info(f"[INTERNAL: GetTOAs]: bestprof = {bestprof}; pfd = {pfd}; timfile = {timfile} ")
     logging.info("----------")
-    subprocess.call("~/work/shared/PSC/magnetar/testdata/get_TOAs.py","-t", bestprof, "-n", 4, pfd, ">>", timfile)
+    subprocess.call(["~/work/shared/PSC/magnetar/testdata/get_TOAs.py","-t", bestprof, "-n", 4, pfd, ">>", timfile])
     
     
