@@ -8,7 +8,7 @@ MagTAP uses PRESTO, the standard tool for pulsar data anaysis, for folding and t
 Installation using `git clone` is the recommended method:
 ```zsh
 ❯ https://github.com/Kushaalkumar-pothula/MagTAP.git
-❯ cd magtap
+❯ cd MagTAP
 ```
 ## Usage
 MagTAP is a command-line tool, and it accepts arguments, like files and values, as flags. To view help, use the `-h` or `--help` flag:
