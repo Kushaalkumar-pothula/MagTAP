@@ -1,7 +1,7 @@
 import subprocess
 import numpy as np
 
-def call_rfifind(files, maskfilename="mask", time=1.0):
+def call_rfifind(files, maskfilename, time=1.0):
     """
     Call rfifind
     
@@ -10,16 +10,16 @@ def call_rfifind(files, maskfilename="mask", time=1.0):
     files: FITS file or glob pattern
         FITS files for rfifind
     
-    maskfilename: String, default="mask"
+    maskfilename: string
         Mask file name for rfifind output
 
     time: float
         Time for the -time flag of rfifind. Probably integration time
     """
-    print(f"Starting rfifind with -time {time} and {files} files...")
+    print(f"Starting rfifind with -time {time} and {files} files for {maskfilename} maskfile...")
     subprocess.call("rfifind", "-time", time, "-o", maskfilename, files)
 
-def call_prepdata(files, DM, maskfile, topofile = "topofile"):
+def call_prepdata(files, DM, maskfile, topofile):
     """
     Create a topocentric time series
 
@@ -31,17 +31,17 @@ def call_prepdata(files, DM, maskfile, topofile = "topofile"):
     dm: float
         Dispersion measure
     
-    maskfile: String
+    maskfile: string
         Mask file name
     
-    topofile: String, default = "topofile"
+    topofile: string
         Filename for topocentric time series file
     """
-    print(f"Starting prepdata for DM = {DM}, maskfile = {maskfile}, files = {files}")
+    print(f"Starting prepdata for DM = {DM}, maskfile = {maskfile}, files = {files}, topofile = {topofile}")
     subprocess.call("prepdata", "-nobary", "-dm", DM, "-mask", maskfile, "-o", topofile, files)
 
 
-def call_prepfold(files, parfile, topofile="topofile"):
+def call_prepfold(files, parfile, topofile):
     """
     Call prepfold
 
@@ -50,10 +50,10 @@ def call_prepfold(files, parfile, topofile="topofile"):
     files: FITS filename or glob pattern
         FITS files for rfifind
     
-    parfile: String
+    parfile: string
         Parameter file name
 
-    topofile: String, default = "topofile"
+    topofile: string
         Filename for topocentric time series file
     """
     print(f"Starting prepfold for {files}: topo-file = {topofile}, parfile = {parfile}")
