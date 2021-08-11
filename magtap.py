@@ -1,6 +1,7 @@
 import subprocess
 import logging
 import glob
+import os
 import argparse
 
 from magtap.folding import *
